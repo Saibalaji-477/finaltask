@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Class Schedules{% endblock %}
+
+{% block content %}
+    <h1>Class Schedules</h1>
+    <form method="post" action="{{ url_for('create_schedule') }}">
+        {{ form.hidden_tag() }}
+        <label for="day">Day:</label>
+        {{ form.day }}
+        <label for="time">Time:</label>
+        {{ form.time }}
+        <label for="course_name">Course Name:</label>
+        {{ form.course_name }}
+        <label for="instructor">Instructor:</label>
+        {{ form.instructor }}
+        {{ form.submit }}
+    </form>
+    <h2>Schedule</h2>
+    <ul>
+        {% for day, classes in schedules.items() %}
+            <li>{{ day }}
+                <ul>
+                    {% for cls in classes %}
+                        <li>{{ cls.time }} - {{ cls.course_name }} with {{ cls.instructor }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
